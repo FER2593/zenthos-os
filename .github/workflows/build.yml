@@ -1,24 +1,26 @@
+
 name: Build Zenthos OS
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Install NASM
-      run: sudo apt-get install -y nasm
+      - name: Install NASM
+        run: sudo apt-get update && sudo apt-get install -y nasm
 
-    - name: Build bootloader
-      run: nasm boot.asm -f bin -o zenthos.img
+      - name: Build bootloader
+        run: nasm boot.asm -f bin -o zenthos.img
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: zenthos-os
-        path: zenthos.img
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: zenthos-os
+          path: zenthos.img
